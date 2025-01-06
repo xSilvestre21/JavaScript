@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Exercícios</title>
+    <style>
+        fieldset{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            border: #ccc;
+            font-size: 1.2em;
+        }
+        .botao{
+            margin-top: 1em;
+            background-color: rgb(192, 152, 101);
+            width: fit-content;
+        }
+        
+        html{
+            background-color: #ccc;
+        }
+
+        input{
+            padding: 10px;
+            font-size: 1em;
+        }
+        label{
+            font-size: 1.2em;
+        }
+
+        .resultado{
+            font-size: 1.3em;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="get" class="form">
+        <fieldset>
+            <label for="nome">Nome: </label>
+            <input type="text" class="nome" id="nome">
+            <label for="sobrenome">Sobrenome: </label>
+            <input type="text" class="sobrenome" id="sobrenome">
+            <label for="weight">Peso: </label>
+            <input type="text" class="peso" id="weight">
+            <label for="height">Altura: </label>
+            <input type="text" class="altura" id="height">
+            <input type="submit" class="botao">
+
+        </fieldset>
+    </form>
+
+    <div class="resultado"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
