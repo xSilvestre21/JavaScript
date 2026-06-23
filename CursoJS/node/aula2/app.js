@@ -6,12 +6,12 @@
 // const cachorro = new cachorrinho('Dog');
 // cachorro.latir();
 
-const Cachorro = require('./z/mod2');
-const c1 = new Cachorro('dog');
+const Cachorro = require("./z/mod2");
+const c1 = new Cachorro("dog");
 c1.latir();
 
 // console.log(__filename);
 // console.log(__dirname);
 
-const path = require('path');
-console.log(path.resolve(__dirname, '..', '..', 'arquivos', 'imagens'));
+const path = require("path");
+console.log(path.resolve(__dirname, "..", "..", "arquivos", "imagens"));
