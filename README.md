@@ -81,6 +81,10 @@ javascript-estudos/
 
 ## Como executar os arquivos
 
+```git clone <url-do-repositorio>
+cd nome-do-projeto
+npm install
+```
 Para rodar arquivos JavaScript no terminal, use:
 
 ```bash
