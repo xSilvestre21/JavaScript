@@ -2,9 +2,9 @@
 
 Repositório criado para organizar meus estudos, exercícios e projetos práticos em JavaScript.
 
-## Objetivo
+## Objetivo 
 
-Registrar minha evolução na linguagem JavaScript, praticando desde os fundamentos até conceitos mais avançados usados no desenvolvimento web.
+Registrar minha evolução na linguagem JavaScript, praticando desde os fundamentos até conceitos mais avançados usados no desenvolvimento web. 
 
 ## Conteúdos estudados
 
