@@ -12,5 +12,4 @@ let num1 = 9.56323;
 // console.log(Math.random());  Número aleatório
 
 const aleatorio = Math.round(Math.random() * (10 - 3) + 5);
- console.log(aleatorio); //Número aleatório com max e min  
-
+console.log(aleatorio); //Número aleatório com max e min

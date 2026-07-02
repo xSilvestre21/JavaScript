@@ -17,10 +17,16 @@ async function walk(files, rootDir) {
     const fileFullPath = path.resolve(rootDir, file);
     const stats = await fs.stat(fileFullPath);
 
+    if (/git/g.test(fileFullPath)) continue;
+    if (/node_modules/g.test(fileFullPath)) continue;
+
     if (stats.isDirectory()) {
       readdir(fileFullPath);
       continue;
     }
+
+    if (!/\.css$/g.test(fileFullPath) && !/\.html/g.test(fileFullPath))
+      continue;
     console.log(fileFullPath, stats.isDirectory());
   }
 }
