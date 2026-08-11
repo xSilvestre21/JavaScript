@@ -329,11 +329,43 @@ const estoque = [
 
 // Esse é o exercício mais importante deste treino.
 
+function venderProduto(nome, quantidade) {
+  let produtoExiste = false;
+  let quantidadeSuficiente = false;
+  let controleDeEstoque = 0;
+  let produtoEncontrado = estoque[0];
+
+  for (const produto of estoque) {
+    if (nome == produto.produto) {
+      produtoExiste = true;
+      produtoEncontrado = produto;
+      if (quantidade <= produto.quantidade) {
+        quantidadeSuficiente = true;
+        controleDeEstoque = produto.quantidade - quantidade;
+      }
+    }
+  }
+
+  if (produtoExiste) {
+    if (quantidadeSuficiente) {
+      produtoEncontrado.quantidade -= quantidade;
+      return `Venda realizada! 😊 ✔ \nEstoque restante do ${produtoEncontrado.produto}: ${controleDeEstoque} `;
+    }
+    return "Estoque insuficiente";
+  }
+
+  return "Produto não encontrado";
+}
+
+console.log(venderProduto("Mouse", 1));
+console.log(venderProduto("Mouse", 1));
+console.log(venderProduto("Gustavo", 1));
+
 // Desafio bônus — Segundo maior número ⭐⭐⭐⭐⭐
 
 // Use:
 
-// const numeros = [10, 45, 3, 89, 62, 17];
+const numerosExtra = [1, 45, 3, 89, 62, 17];
 
 // Descubra o segundo maior número, sem usar:
 
@@ -351,3 +383,14 @@ const estoque = [
 // let segundoMaior = ...
 
 // Mas tente pensar na lógica sozinho antes de procurar uma solução.
+
+let maiorNumero = numerosExtra[0];
+let segundoMaior = numerosExtra[0];
+
+for (let i = 1; i < numerosExtra.length; i++) {
+  if (numerosExtra[i] > maiorNumero) {
+    maiorNumero = numerosExtra[i];
+  }
+}
+
+console.log(`Segundo maior: ${segundoMaior}`);
