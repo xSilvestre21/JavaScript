@@ -112,17 +112,11 @@ const nomes = ["Gustavo", "Maria", "Lucas", "Fernanda"];
 // Tente fazer sem includes().
 
 function verificarNome(nome) {
-  let nomeEncontrado = false;
   for (let i = 0; i < nomes.length; i++) {
-    if (nome == nomes[i]) {
-      nomeEncontrado = true;
-      break;
+    if (nome === nomes[i]) {
+      return "Nome encontrado";
     }
   }
-  if (nomeEncontrado) {
-    return "Nome encontrado";
-  }
-
   return "Nome não encontrado";
 }
 
@@ -174,7 +168,7 @@ for (const aluno of alunos) {
 }
 
 const mediaDaTurma = soma / alunos.length;
-console.log(`Média da turma: ${mediaDaTurma}`);
+console.log(`Média da turma: ${mediaDaTurma.toFixed(2)}`);
 
 // Exercício 8 — Aprovados e reprovados ⭐⭐⭐
 
@@ -267,16 +261,10 @@ const novosAlunos = [
 // Não use .find() ainda.
 
 function buscarAluno(nome) {
-  let alunoExiste = false;
-  let alunoEncontrado = novosAlunos[0];
   for (const aluno of novosAlunos) {
-    if (nome == aluno.nome) {
-      alunoExiste = true;
-      alunoEncontrado = aluno;
+    if (nome === aluno.nome) {
+      return `${aluno.nome} tirou nota ${aluno.nota}`;
     }
-  }
-  if (alunoExiste) {
-    return `${alunoEncontrado.nome} tirou nota ${alunoEncontrado.nota}`;
   }
 
   return "Aluno não encontrado";
@@ -329,29 +317,51 @@ const estoque = [
 
 // Esse é o exercício mais importante deste treino.
 
+// function venderProduto(nome, quantidade) {
+//   let produtoExiste = false;
+//   let quantidadeSuficiente = false;
+//   let controleDeEstoque = 0;
+//   let produtoEncontrado = estoque[0];
+
+//   for (const produto of estoque) {
+//     if (nome == produto.produto) {
+//       produtoExiste = true;
+//       produtoEncontrado = produto;
+//       if (quantidade <= produto.quantidade) {
+//         quantidadeSuficiente = true;
+//         controleDeEstoque = produto.quantidade - quantidade;
+//       }
+//     }
+//   }
+
+//   if (produtoExiste) {
+//     if (quantidadeSuficiente) {
+//       produtoEncontrado.quantidade -= quantidade;
+//       return `Venda realizada! 😊 ✔ \nEstoque restante do ${produtoEncontrado.produto}: ${controleDeEstoque} `;
+//     }
+//     return "Estoque insuficiente";
+//   }
+
+//   return "Produto não encontrado";
+// }
+
+// console.log(venderProduto("Mouse", 1));
+// console.log(venderProduto("Mouse", 1));
+
+// mais simples
+
 function venderProduto(nome, quantidade) {
-  let produtoExiste = false;
-  let quantidadeSuficiente = false;
-  let controleDeEstoque = 0;
-  let produtoEncontrado = estoque[0];
-
   for (const produto of estoque) {
-    if (nome == produto.produto) {
-      produtoExiste = true;
-      produtoEncontrado = produto;
-      if (quantidade <= produto.quantidade) {
-        quantidadeSuficiente = true;
-        controleDeEstoque = produto.quantidade - quantidade;
+    if (produto.produto === nome) {
+      if (produto.quantidade < quantidade) {
+        return "Estoque insuficiente";
       }
-    }
-  }
 
-  if (produtoExiste) {
-    if (quantidadeSuficiente) {
-      produtoEncontrado.quantidade -= quantidade;
-      return `Venda realizada! 😊 ✔ \nEstoque restante do ${produtoEncontrado.produto}: ${controleDeEstoque} `;
+      produto.quantidade -= quantidade;
+
+      return `Venda realizada! 😊 ✔
+Estoque restante do ${produto.produto}: ${produto.quantidade}`;
     }
-    return "Estoque insuficiente";
   }
 
   return "Produto não encontrado";
@@ -359,13 +369,11 @@ function venderProduto(nome, quantidade) {
 
 console.log(venderProduto("Mouse", 1));
 console.log(venderProduto("Mouse", 1));
-console.log(venderProduto("Gustavo", 1));
-
 // Desafio bônus — Segundo maior número ⭐⭐⭐⭐⭐
 
 // Use:
 
-const numerosExtra = [1, 45, 3, 89, 62, 17];
+const numerosExtra = [71, 45, 3, 89, 62, 17];
 
 // Descubra o segundo maior número, sem usar:
 
@@ -384,13 +392,32 @@ const numerosExtra = [1, 45, 3, 89, 62, 17];
 
 // Mas tente pensar na lógica sozinho antes de procurar uma solução.
 
+// let maiorNumero = numerosExtra[0];
+// let segundoMaior = numerosExtra[0];
+
+// for (let i = 1; i < numerosExtra.length; i++) {
+//   if (numerosExtra[i] > maiorNumero) {
+//     maiorNumero = numerosExtra[i];
+//   }
+// }
+
+// console.log(`Segundo maior: ${segundoMaior}`);
+
+// correção
+
 let maiorNumero = numerosExtra[0];
-let segundoMaior = numerosExtra[0];
+let segundoMaior = -Infinity;
 
 for (let i = 1; i < numerosExtra.length; i++) {
-  if (numerosExtra[i] > maiorNumero) {
-    maiorNumero = numerosExtra[i];
+  const numeroAtual = numerosExtra[i];
+
+  if (numeroAtual > maiorNumero) {
+    segundoMaior = maiorNumero;
+    maiorNumero = numeroAtual;
+  } else if (numeroAtual > segundoMaior) {
+    segundoMaior = numeroAtual;
   }
 }
 
+console.log(`Maior: ${maiorNumero}`);
 console.log(`Segundo maior: ${segundoMaior}`);
