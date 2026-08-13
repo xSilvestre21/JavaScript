@@ -288,11 +288,11 @@ console.log(removerProduto("Mouse"));
 
 // Use:
 
-// const carrinho = [
-//   { produto: "Mouse", preco: 100, quantidade: 2 },
-//   { produto: "Teclado", preco: 200, quantidade: 1 },
-//   { produto: "Monitor", preco: 1000, quantidade: 1 },
-// ];
+const carrinho = [
+  { produto: "Mouse", preco: 100, quantidade: 2 },
+  { produto: "Teclado", preco: 200, quantidade: 1 },
+  { produto: "Monitor", preco: 1000, quantidade: 1 },
+];
 
 // Calcule o valor total.
 
@@ -306,15 +306,32 @@ console.log(removerProduto("Mouse"));
 // Subtotal: R$1400.00
 // Desconto: R$140.00
 // Total final: R$1260.00
+
+let total = 0;
+let subtotal = 0;
+let desconto = 0;
+for (const item of carrinho) {
+  subtotal += item.preco * item.quantidade;
+}
+
+if (subtotal >= 1000) {
+  desconto = subtotal * 0.1;
+  total = subtotal - desconto;
+}
+
+console.log(`Subtotal: R$${subtotal.toFixed(2)}`);
+console.log(`Desconto: R$${desconto.toFixed(2)}`);
+console.log(`Total final: R$${total.toFixed(2)}`);
+
 // Exercício 11 — Atualizar nota de aluno ⭐⭐⭐⭐
 
 // Use:
 
-// const alunos = [
-//   { nome: "João", nota: 7 },
-//   { nome: "Maria", nota: 9 },
-//   { nome: "Pedro", nota: 5 },
-// ];
+const alunos = [
+  { nome: "João", nota: 7 },
+  { nome: "Maria", nota: 9 },
+  { nome: "Pedro", nota: 5 },
+];
 
 // Crie:
 
