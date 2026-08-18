@@ -352,14 +352,27 @@ const alunos = [
 // Caso o aluno não exista:
 
 // Aluno não encontrado
+
+function atualizarNota(nome, novaNota) {
+  for (const aluno of alunos) {
+    if (nome === aluno.nome) {
+      aluno.nota = novaNota;
+      return;
+    }
+  }
+  return "Aluno não encontrado";
+}
+
+atualizarNota("Maria", 8);
+console.log(alunos);
 // Exercício 12 — Sistema bancário simples ⭐⭐⭐⭐⭐
 
 // Use:
 
-// const conta = {
-//   titular: "Gustavo",
-//   saldo: 1000,
-// };
+const conta = {
+  titular: "Gustavo",
+  saldo: 1000,
+};
 
 // Crie duas funções:
 
@@ -402,13 +415,38 @@ const alunos = [
 // Nesse caso:
 
 // Valor inválido
+
+function depositar(valor) {
+  console.log("Deposito realizado 📈");
+  console.log(`Saldo atual: R$${(conta.saldo += valor).toFixed(2)}`);
+}
+
+function sacar(valor) {
+  if (valor < 0) {
+    console.log("Valor inválido!");
+  } else if (valor <= conta.saldo) {
+    conta.saldo -= valor;
+    console.log("Saque realizado 📉");
+    console.log(`Saldo atual: R$${conta.saldo.toFixed(2)}`);
+  } else {
+    console.log("Saldo insuficiente ❌");
+  }
+}
+sacar(-100);
+depositar(100);
+sacar(100);
+depositar(100);
+sacar(1300);
+depositar(10000);
+console.log(conta);
+
 // Desafio bônus — Segundo menor número ⭐⭐⭐⭐⭐
 
 // Depois do segundo maior do último treino, agora faça o inverso.
 
 // Use:
 
-// const numeros = [20, 5, 13, 2, 40, 8];
+const numerosExtra = [20, 5, 13, 2, 40, 3];
 
 // Sem usar:
 
@@ -421,5 +459,16 @@ const alunos = [
 
 // Tente pensar em duas variáveis:
 
-// let menor = ...
-// let segundoMenor = ...
+let menor = Infinity;
+let segundoMenor = Infinity - 1;
+
+numerosExtra.forEach((numero) => {
+  if (numero < menor) {
+    segundoMenor = menor;
+    menor = numero;
+  } else if (numero < segundoMenor) {
+    segundoMenor = numero;
+  }
+});
+
+console.log(menor, segundoMenor);
