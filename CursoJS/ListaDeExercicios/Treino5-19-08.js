@@ -243,17 +243,25 @@ console.log(`Artilheiro: ${artilheiro.nome} - ${artilheiro.gols} gols`);
 // 86.00°F
 
 function converterTemperatura(valor, tipo) {
-  console.log("oi");
+  if (tipo === "C") {
+    const f = valor * 1.8 + 32;
+    return `${f.toFixed(2)}°F`;
+  } else if (tipo === "F") {
+    const c = (valor - 32) / 1.8;
+    return `${c.toFixed(2)}°C`;
+  }
 }
+
+console.log(converterTemperatura(30, "C"));
 
 // Exercício 9 — Máquina de refrigerante ⭐⭐⭐⭐
 
 // Use:
 
-// const maquina = {
-//   preco: 6,
-//   quantidade: 4,
-// };
+const maquina = {
+  preco: 6,
+  quantidade: 4,
+};
 
 // Crie:
 
@@ -276,19 +284,37 @@ function converterTemperatura(valor, tipo) {
 // Compra realizada
 // Troco: R$4.00
 // Restantes: 3
+
+function comprarRefrigerante(valorPago) {
+  if (maquina.quantidade === 0) {
+    console.log("Produto esgotado");
+    return;
+  } else if (valorPago < maquina.preco) {
+    console.log("Valor insuficiente");
+    return;
+  }
+  const troco = valorPago - maquina.preco;
+  maquina.quantidade -= 1;
+  console.log("Compra Realizada");
+  console.log(`Troco: R$${troco.toFixed(2)}`);
+  console.log(`Restante: ${maquina.quantidade}`);
+}
+
+comprarRefrigerante(9);
+
 // Exercício 10 — Sistema de batalha ⭐⭐⭐⭐
 
 // Use:
 
-// const heroi = {
-//   nome: "Arthur",
-//   vida: 100,
-// };
+const heroi = {
+  nome: "Arthur",
+  vida: 100,
+};
 
-// const monstro = {
-//   nome: "Orc",
-//   vida: 80,
-// };
+const monstro = {
+  nome: "Orc",
+  vida: 80,
+};
 
 // Crie:
 
@@ -317,6 +343,7 @@ function converterTemperatura(valor, tipo) {
 // Quero:
 
 // Vida: 0
+
 // Exercício 11 — Playlist ⭐⭐⭐⭐
 
 // Use:
