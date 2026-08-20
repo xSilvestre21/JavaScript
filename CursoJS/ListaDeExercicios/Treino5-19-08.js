@@ -182,22 +182,32 @@ filmes.forEach((filme) => {
     console.log(`${filme.titulo} - ${filme.duracao} minutos`);
   }
 });
+
 // Exercício 7 — Jogador com mais gols ⭐⭐⭐
 
 // Use:
 
-// const jogadores = [
-//   { nome: "Rafael", gols: 8 },
-//   { nome: "Lucas", gols: 14 },
-//   { nome: "Pedro", gols: 5 },
-//   { nome: "Caio", gols: 11 },
-// ];
+const jogadores = [
+  { nome: "Rafael", gols: 8 },
+  { nome: "Lucas", gols: 14 },
+  { nome: "Pedro", gols: 5 },
+  { nome: "Caio", gols: 11 },
+];
 
 // Descubra o artilheiro.
 
 // Depois mostre:
 
 // Artilheiro: Lucas - 14 gols
+let artilheiro = jogadores[0];
+jogadores.forEach((jogador) => {
+  if (jogador.gols > artilheiro.gols) {
+    artilheiro = jogador;
+  }
+});
+
+console.log(`Artilheiro: ${artilheiro.nome} - ${artilheiro.gols} gols`);
+
 // Exercício 8 — Transformar temperatura ⭐⭐⭐
 
 // Crie:
@@ -231,6 +241,11 @@ filmes.forEach((filme) => {
 // Resultado:
 
 // 86.00°F
+
+function converterTemperatura(valor, tipo) {
+  console.log("oi");
+}
+
 // Exercício 9 — Máquina de refrigerante ⭐⭐⭐⭐
 
 // Use:
