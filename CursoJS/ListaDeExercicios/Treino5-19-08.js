@@ -18,6 +18,18 @@
 // Resultado:
 
 // Senha média
+
+function verificarSenha(senha) {
+  if (senha.length < 6) {
+    return "Senha fraca";
+  } else if (senha.length >= 6 && senha.length <= 9) {
+    return "Senha média";
+  } else {
+    return "Senha forte";
+  }
+}
+
+console.log(verificarSenha("asdfg5"));
 // Exercício 2 — Contagem regressiva de lançamento ⭐⭐
 
 // Crie um for que mostre:
@@ -31,16 +43,24 @@
 
 // Imagine que seja uma contagem regressiva de foguete.
 
+for (let i = 10; i >= 0; i--) {
+  if (i === 0) {
+    console.log("Lançamento! 🚀");
+    break;
+  }
+  console.log(i);
+}
+
 // Exercício 3 — Personagem com mais vida ⭐⭐⭐
 
 // Use:
 
-// const personagens = [
-//   { nome: "Guerreiro", vida: 120 },
-//   { nome: "Mago", vida: 80 },
-//   { nome: "Arqueiro", vida: 95 },
-//   { nome: "Paladino", vida: 150 },
-// ];
+const personagens = [
+  { nome: "Guerreiro", vida: 120 },
+  { nome: "Mago", vida: 180 },
+  { nome: "Arqueiro", vida: 95 },
+  { nome: "Paladino", vida: 150 },
+];
 
 // Descubra qual personagem possui mais vida.
 
@@ -49,6 +69,18 @@
 // Mais resistente: Paladino - 150 HP
 
 // Tente guardar o objeto inteiro.
+
+let personagemMaisVida = personagens[0];
+
+personagens.forEach((personagem) => {
+  if (personagem.vida > personagemMaisVida.vida) {
+    personagemMaisVida = personagem;
+  }
+});
+
+console.log(
+  `Mais reistente: ${personagemMaisVida.nome} - ${personagemMaisVida.vida}`,
+);
 
 // Exercício 4 — Radar de velocidade ⭐⭐⭐
 
@@ -69,16 +101,29 @@
 // Resultado:
 
 // Infração leve
+
+function verificarVelocidade(velocidade, radar) {
+  if (velocidade <= radar) {
+    return "Velocidade permitida";
+  } else if (velocidade - radar <= 10 && velocidade - radar >= 1) {
+    return "Infração leve";
+  } else {
+    return "Infração grave";
+  }
+}
+
+console.log(verificarVelocidade(60, 50));
+
 // Exercício 5 — Inventário de RPG ⭐⭐⭐
 
 // Use:
 
-// const inventario = [
-//   { item: "Espada", quantidade: 1 },
-//   { item: "Poção", quantidade: 5 },
-//   { item: "Escudo", quantidade: 1 },
-//   { item: "Flecha", quantidade: 20 },
-// ];
+const inventario = [
+  { item: "Espada", quantidade: 1 },
+  { item: "Poção", quantidade: 5 },
+  { item: "Escudo", quantidade: 1 },
+  { item: "Flecha", quantidade: 20 },
+];
 
 // Crie:
 
@@ -99,16 +144,31 @@
 
 // Poção utilizada
 // Restantes: 4
+
+function usarItem(item) {
+  for (const escolha of inventario) {
+    if (escolha.item === item) {
+      if (escolha.quantidade === 0) {
+        return "Você não possui mais este item";
+      }
+      escolha.quantidade -= 1;
+      return `${escolha.item} utilizada\nRestantes: ${escolha.quantidade}`;
+    }
+  }
+  return "Item não encontrado";
+}
+
+console.log(usarItem("Poção"));
 // Exercício 6 — Filmes longos ⭐⭐⭐
 
 // Use:
 
-// const filmes = [
-//   { titulo: "Interestelar", duracao: 169 },
-//   { titulo: "Toy Story", duracao: 81 },
-//   { titulo: "Oppenheimer", duracao: 180 },
-//   { titulo: "Shrek", duracao: 90 },
-// ];
+const filmes = [
+  { titulo: "Interestelar", duracao: 169 },
+  { titulo: "Toy Story", duracao: 81 },
+  { titulo: "Oppenheimer", duracao: 180 },
+  { titulo: "Shrek", duracao: 90 },
+];
 
 // Mostre apenas filmes com mais de 120 minutos.
 
@@ -116,6 +176,12 @@
 
 // Interestelar - 169 minutos
 // Oppenheimer - 180 minutos
+
+filmes.forEach((filme) => {
+  if (filme.duracao > 120) {
+    console.log(`${filme.titulo} - ${filme.duracao} minutos`);
+  }
+});
 // Exercício 7 — Jogador com mais gols ⭐⭐⭐
 
 // Use:
