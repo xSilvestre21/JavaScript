@@ -368,6 +368,20 @@ function atacar(atacante, alvo, dano) {
 
 console.log(atacar(monstro, heroi, 25));
 
+//correção
+
+function atacar(atacante, alvo, dano) {
+  alvo.vida -= dano;
+
+  if (alvo.vida < 0) {
+    alvo.vida = 0;
+  }
+
+  return `${atacante.nome} atacou ${alvo.nome}
+Dano: ${dano}
+Vida restante de ${alvo.nome}: ${alvo.vida}`;
+}
+
 // Exercício 11 — Playlist ⭐⭐⭐⭐
 
 // Use:
@@ -395,7 +409,7 @@ playlist.forEach((musica) => {
   totalEmSegundos += musica.duracao;
 });
 
-const totalEmMinutos = Math.round(totalEmSegundos / 60);
+const totalEmMinutos = Math.floor(totalEmSegundos / 60);
 let decimal = totalEmSegundos / 60 - Math.round(totalEmSegundos / 60);
 decimal *= 60;
 console.log(`${totalEmMinutos} minutos e ${Math.round(decimal)} segundos`);
@@ -421,7 +435,7 @@ const pilotos = [
 
 let vencedor = pilotos[0];
 pilotos.forEach((piloto) => {
-  if (piloto.tempo < vencedor) {
+  if (piloto.tempo < vencedor.tempo) {
     vencedor = piloto;
   }
 });
@@ -469,13 +483,12 @@ console.log(`Vencedor: ${vencedor.nome} - ${vencedor.tempo} segundos`);
 
 const notasDisponiveis = [100, 50, 20, 10];
 function sacarDinheiro(valor) {
+  let valorAtual = valor;
   for (const nota of notasDisponiveis) {
-    let contador = 0;
-    if (valor / nota > 0) {
-      contador += 1;
-      console.log(`Notas de ${nota}: ${contador}`);
-    }
+    const quantidade = Math.floor(valorAtual / nota);
+    valorAtual = valorAtual % nota;
+    console.log(`Notas de ${nota}: ${quantidade}`);
   }
 }
 
-sacarDinheiro(340);
+sacarDinheiro(350);
