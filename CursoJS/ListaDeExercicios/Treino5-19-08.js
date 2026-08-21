@@ -344,16 +344,40 @@ const monstro = {
 
 // Vida: 0
 
+function atacar(atacante, alvo, dano) {
+  if (atacante === heroi) {
+    if (alvo !== monstro) {
+      return "Alvo inexistente";
+    } else if (dano > monstro.vida) {
+      monstro.vida = 0;
+    } else {
+      monstro.vida -= dano;
+    }
+    return `${heroi.nome} atacou ${monstro.nome}\nDano: ${dano}\nVida restante do ${monstro.nome}: ${monstro.vida}`;
+  } else if (atacante === monstro) {
+    if (alvo !== heroi) {
+      return "Alvo inexistente";
+    } else if (dano > heroi.vida) {
+      heroi.vida = 0;
+    } else {
+      heroi.vida -= dano;
+    }
+    return `${monstro.nome} atacou ${heroi.nome}\nDano: ${dano}\nVida restante do ${heroi.nome}: ${heroi.vida}`;
+  }
+}
+
+console.log(atacar(monstro, heroi, 25));
+
 // Exercício 11 — Playlist ⭐⭐⭐⭐
 
 // Use:
 
-// const playlist = [
-//   { musica: "Blinding Lights", duracao: 200 },
-//   { musica: "Starboy", duracao: 230 },
-//   { musica: "Sweater Weather", duracao: 240 },
-//   { musica: "505", duracao: 253 },
-// ];
+const playlist = [
+  { musica: "Blinding Lights", duracao: 200 },
+  { musica: "Starboy", duracao: 230 },
+  { musica: "Sweater Weather", duracao: 240 },
+  { musica: "505", duracao: 253 },
+];
 
 // Calcule a duração total da playlist em segundos.
 
@@ -366,17 +390,26 @@ const monstro = {
 // Não precisa usar nenhuma função pronta especial.
 
 // Dica: pense em divisão inteira e resto %.
+let totalEmSegundos = 0;
+playlist.forEach((musica) => {
+  totalEmSegundos += musica.duracao;
+});
+
+const totalEmMinutos = Math.round(totalEmSegundos / 60);
+let decimal = totalEmSegundos / 60 - Math.round(totalEmSegundos / 60);
+decimal *= 60;
+console.log(`${totalEmMinutos} minutos e ${Math.round(decimal)} segundos`);
 
 // Exercício 12 — Corrida de carros ⭐⭐⭐⭐
 
 // Use:
 
-// const pilotos = [
-//   { nome: "Carlos", tempo: 72.4 },
-//   { nome: "Bruno", tempo: 69.8 },
-//   { nome: "Felipe", tempo: 71.2 },
-//   { nome: "André", tempo: 68.9 },
-// ];
+const pilotos = [
+  { nome: "Carlos", tempo: 72.4 },
+  { nome: "Bruno", tempo: 69.8 },
+  { nome: "Felipe", tempo: 71.2 },
+  { nome: "André", tempo: 68.9 },
+];
 
 // Aqui, menor tempo significa melhor resultado.
 
@@ -385,6 +418,15 @@ const monstro = {
 // Vencedor: André - 68.9 segundos
 
 // Esse exercício é interessante porque você precisa procurar o menor, não o maior.
+
+let vencedor = pilotos[0];
+pilotos.forEach((piloto) => {
+  if (piloto.tempo < vencedor) {
+    vencedor = piloto;
+  }
+});
+
+console.log(`Vencedor: ${vencedor.nome} - ${vencedor.tempo} segundos`);
 
 // Desafio bônus — Caixa eletrônico ⭐⭐⭐⭐⭐
 
@@ -424,3 +466,16 @@ const monstro = {
 // ↓
 // quanto sobra?
 // ...
+
+const notasDisponiveis = [100, 50, 20, 10];
+function sacarDinheiro(valor) {
+  for (const nota of notasDisponiveis) {
+    let contador = 0;
+    if (valor / nota > 0) {
+      contador += 1;
+      console.log(`Notas de ${nota}: ${contador}`);
+    }
+  }
+}
+
+sacarDinheiro(340);
