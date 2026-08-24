@@ -46,18 +46,34 @@
 
 // ---
 
+function proximoSinal(corAtual) {
+  const cores = ["verde", "amarelo", "vermelho"];
+  for (let i = 0; i < cores.length; i++) {
+    if (corAtual === cores[i]) {
+      if (i === cores.length - 1) {
+        return cores[0];
+      }
+      return cores[i + 1];
+    }
+  }
+
+  return "Sinal inválido";
+}
+
+console.log(proximoSinal("vermelho"));
+
 // ## Exercício 2 — Elevador maluco ⭐⭐⭐
 
 // Você está no andar:
 
 // ```js
-// let andarAtual = 3;
+let andarAtual = 3;
 // ```
 
 // E recebeu esta sequência:
 
 // ```js
-// const comandos = ["subir", "subir", "descer", "subir", "descer", "descer"];
+const comandos = ["subir", "subir", "descer", "subir", "descer", "descer"];
 // ```
 
 // Regras:
@@ -85,20 +101,34 @@
 
 // ---
 
+comandos.forEach((comando) => {
+  if (comando === "subir") {
+    if (andarAtual < 5) {
+      andarAtual += 1;
+      console.log(`Elevador subiu para o andar ${andarAtual}`);
+    } else {
+      console.log("Não é possível subir");
+    }
+  } else if (comando === "descer") {
+    if (andarAtual > 0) {
+      andarAtual -= 1;
+      console.log(`Elevador desceu para o andar ${andarAtual}`);
+    } else {
+      console.log("Não é possível descer");
+    }
+  }
+});
+
+console.log(`Andar final: ${andarAtual}`);
+
 // ## Exercício 3 — Cofre com tentativas limitadas ⭐⭐⭐
 
 // Considere:
 
 // ```js
-// const senhaCorreta = "5279";
+const senhaCorreta = "5279";
 
-// const tentativas = [
-//   "1234",
-//   "9999",
-//   "5279",
-//   "0000",
-// ];
-// ```
+const tentativas = ["1234", "9999", "5279", "0000"];
 
 // O usuário possui no máximo **3 tentativas**.
 
@@ -127,19 +157,34 @@
 // Importante: depois que o cofre for desbloqueado, nenhuma outra tentativa deve ser processada.
 
 // ---
+let contadorDeTentativas = 2;
+for (let i = 0; i < tentativas.length; i++) {
+  if (tentativas[i] === senhaCorreta) {
+    console.log("Cofre desbloqueado! 💸");
+    break;
+  } else if (i >= 2) {
+    console.log("Cofre bloqueado ❌");
+    break;
+  } else {
+    console.log(
+      `Senha incorreta. Tentativas restantes: ${contadorDeTentativas}`,
+    );
+    contadorDeTentativas -= 1;
+  }
+}
 
 // ## Exercício 4 — Controle de cinema 🍿 ⭐⭐⭐
 
 // Uma sessão possui:
 
 // ```js
-// let lugaresDisponiveis = 5;
+let lugaresDisponiveis = 5;
 // ```
 
 // Chegaram grupos:
 
 // ```js
-// const grupos = [2, 4, 1, 3];
+const grupos = [2, 4, 1, 3];
 // ```
 
 // Cada número representa quantas pessoas querem entrar juntas.
@@ -170,24 +215,38 @@
 
 // ---
 
+grupos.forEach((grupo) => {
+  if (grupo <= lugaresDisponiveis) {
+    lugaresDisponiveis -= grupo;
+    console.log(
+      `Grupo de ${grupo} entrou\nRestam ${lugaresDisponiveis} lugares`,
+    );
+  } else {
+    console.log(`Grupo de ${grupo} não conseguiu entrar`);
+  }
+});
+
+console.log(`Lugares restantes: ${lugaresDisponiveis}`);
+
 // ## Exercício 5 — Personagem com efeitos temporários ⭐⭐⭐
 
 // ```js
-// const personagem = {
-//   nome: "Kael",
-//   ataque: 20,
-// };
+const personagem = {
+  nome: "Kael",
+  ataque: 20,
+};
 // ```
 
 // Ele recebe esta sequência:
 
 // ```js
-// const efeitos = [
-//   { tipo: "buff", valor: 10 },
-//   { tipo: "debuff", valor: 5 },
-//   { tipo: "buff", valor: 20 },
-//   { tipo: "debuff", valor: 50 },
-// ];
+const efeitos = [
+  { tipo: "buff", valor: 10 },
+  { tipo: "debuff", valor: 5 },
+  { tipo: "buff", valor: 20 },
+  { tipo: "debuff", valor: 50 },
+  { tipo: "buff", valor: 50 },
+];
 // ```
 
 // Regras:
@@ -211,6 +270,24 @@
 // ```
 
 // ---
+
+let ataqueFinal = 0;
+for (const efeito of efeitos) {
+  if (efeito.tipo === "buff") {
+    ataqueFinal = personagem.ataque + efeito.valor;
+    console.log(`Buff de ${efeito.valor} aplicado - ataque: ${ataqueFinal}`);
+  } else if (efeito.tipo === "debuff") {
+    if (efeito.valor > personagem.ataque) {
+      ataqueFinal = 0;
+      console.log(
+        `Debuff de ${efeito.valor} aplicado - ataque: ${ataqueFinal}`,
+      );
+      continue;
+    }
+    ataqueFinal = personagem.ataque - efeito.valor;
+    console.log(`Debuff de ${efeito.valor} aplicado - ataque: ${ataqueFinal}`);
+  }
+}
 
 // ## Exercício 6 — Estacionamento com cobrança progressiva ⭐⭐⭐
 
@@ -243,6 +320,20 @@
 
 // ---
 
+function calcularEstacionamento(horas) {
+  let totalDeHoras = 8;
+  for (let i = 0; i <= horas; i++) {
+    if (i >= 2 && i <= 3) {
+      totalDeHoras += 5;
+    } else if (i >= 4) {
+      totalDeHoras += 3;
+    }
+  }
+  return totalDeHoras;
+}
+
+console.log(calcularEstacionamento(5));
+
 // ## Exercício 7 — Porta de segurança com cartão e PIN ⭐⭐⭐⭐
 
 // Crie:
@@ -274,30 +365,24 @@
 
 // ---
 
+function autorizarEntrada(cartaoValido, pinCorreto, bloqueado) {
+  if (bloqueado) {
+    return "Acesso negado";
+  } else if (!cartaoValido) {
+    return "Acesso negado";
+  } else if (cartaoValido) {
+    if (!pinCorreto) {
+      return "PIN incorreto";
+    }
+    return "Acesso permitido";
+  }
+}
+
+console.log(autorizarEntrada(true, true, true));
+
 // ## Exercício 8 — Drone com bateria e comandos ⭐⭐⭐⭐
 
 // ```js
-// let bateria = 100;
-
-// const comandos = [
-//   "subir",
-//   "avancar",
-//   "avancar",
-//   "foto",
-//   "subir",
-//   "foto",
-//   "pousar",
-// ];
-// ```
-
-// Custos:
-
-// ```text
-// subir = 20
-// avancar = 15
-// foto = 10
-// pousar = 5
-// ```
 
 // Regras:
 
@@ -318,18 +403,70 @@
 // ...
 // Drone pousou.
 // ```
+let bateria = 100;
 
+const comandosNovos = [
+  "subir",
+  "avancar",
+  "avancar",
+  "subir",
+  "foto",
+  "pousar",
+];
+
+// Custos:
+
+// ```text
+// subir = 20
+// avancar = 15
+// foto = 10
+// pousar = 5
+// ```
 // ---
+
+for (const comando of comandosNovos) {
+  if (comando === "subir") {
+    if (bateria <= 20) {
+      console.log("oi");
+      console.log(`Bateria insuficiente para: ${comando}`);
+      return;
+    }
+    bateria -= 20;
+    console.log(`Subir executado - Bateria: ${bateria}%`);
+  } else if (comando === "avancar") {
+    if (bateria < 15) {
+      console.log(`Bateria insuficiente para: ${comando}`);
+      return;
+    }
+    bateria -= 15;
+    console.log(`Avançar executado - Bateria: ${bateria}%`);
+  } else if (comando === "foto") {
+    if (bateria < 10) {
+      console.log(`Bateria insuficiente para: ${comando}`);
+      return;
+    }
+    bateria -= 10;
+    console.log(`Foto executado - Bateria: ${bateria}%`);
+  } else {
+    if (bateria < 5) {
+      console.log(`Bateria insuficiente para: ${comando}`);
+      return;
+    }
+    bateria -= 5;
+    console.log("Drone pousou");
+    break;
+  }
+}
 
 // ## Exercício 9 — Restaurante com fila de pedidos ⭐⭐⭐⭐
 
 // ```js
-// const pedidos = [
-//   { prato: "Hambúrguer", tempo: 15 },
-//   { prato: "Pizza", tempo: 25 },
-//   { prato: "Salada", tempo: 8 },
-//   { prato: "Lasanha", tempo: 30 },
-// ];
+const pedidos = [
+  { prato: "Hambúrguer", tempo: 15 },
+  { prato: "Pizza", tempo: 25 },
+  { prato: "Salada", tempo: 8 },
+  { prato: "Lasanha", tempo: 30 },
+];
 // ```
 
 // A cozinha possui apenas **50 minutos disponíveis**.
@@ -361,20 +498,31 @@
 
 // ---
 
+let tempoUsado = 0;
+for (const pedido of pedidos) {
+  if (tempoUsado + pedido.tempo > 50) {
+    console.log(`${pedido.prato} não pôde ser praparado`);
+    console.log(`Tempo restante: ${50 - tempoUsado} minutos`);
+    break;
+  }
+  tempoUsado += pedido.tempo;
+  console.log(`${pedido.prato} preparado\nTempo usado: ${tempoUsado}`);
+}
+
 // ## Exercício 10 — Combate por turnos ⭐⭐⭐⭐
 
 // ```js
-// const jogador = {
-//   nome: "Ragnar",
-//   vida: 100,
-//   dano: 30,
-// };
+const jogador = {
+  nome: "Ragnar",
+  vida: 100,
+  dano: 30,
+};
 
-// const inimigo = {
-//   nome: "Troll",
-//   vida: 120,
-//   dano: 20,
-// };
+const inimigo = {
+  nome: "Troll",
+  vida: 120,
+  dano: 20,
+};
 // ```
 
 // Faça uma batalha automática.
@@ -406,6 +554,24 @@
 // A vida nunca pode aparecer negativa.
 
 // ---
+
+while (true) {
+  inimigo.vida -= jogador.dano;
+  console.log(
+    `${jogador.nome} atacou ${inimigo.nome}\nVida de ${inimigo.nome}: ${inimigo.vida}`,
+  );
+  if (inimigo.vida <= 0) {
+    console.log(`${inimigo.nome} foi derrotado!`);
+    return;
+  }
+  jogador.vida -= inimigo.dano;
+  console.log(
+    `${inimigo.nome} atacou ${jogador.nome}\nVida de ${jogador.nome}: ${jogador.vida}`,
+  );
+  if (jogador.vida <= 0) {
+    console.log(`${jogador.nome} foi derrotado!`);
+  }
+}
 
 // ## Exercício 11 — Portal com energia ⭐⭐⭐⭐
 
