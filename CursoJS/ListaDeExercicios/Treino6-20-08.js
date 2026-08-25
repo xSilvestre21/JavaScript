@@ -555,14 +555,14 @@ const inimigo = {
 
 // ---
 
-while (true) {
+while (jogador.vida >= 0 || inimigo.vida >= 0) {
   inimigo.vida -= jogador.dano;
   console.log(
     `${jogador.nome} atacou ${inimigo.nome}\nVida de ${inimigo.nome}: ${inimigo.vida}`,
   );
   if (inimigo.vida <= 0) {
     console.log(`${inimigo.nome} foi derrotado!`);
-    return;
+    break;
   }
   jogador.vida -= inimigo.dano;
   console.log(
@@ -570,6 +570,7 @@ while (true) {
   );
   if (jogador.vida <= 0) {
     console.log(`${jogador.nome} foi derrotado!`);
+    break;
   }
 }
 
@@ -578,18 +579,19 @@ while (true) {
 // Você possui:
 
 // ```js
-// let energia = 50;
+let energia = 50;
 // ```
 
 // E estes portais:
 
 // ```js
-// const portais = [
-//   { destino: "Floresta", custo: 15 },
-//   { destino: "Deserto", custo: 25 },
-//   { destino: "Castelo", custo: 20 },
-//   { destino: "Vulcão", custo: 40 },
-// ];
+const portais = [
+  { destino: "Floresta", custo: 15 },
+  { destino: "Deserto", custo: 25 },
+  { destino: "Castelo", custo: 20 },
+  { destino: "Vulcão", custo: 40 },
+  { destino: "Casa", custo: 10 },
+];
 // ```
 
 // Você tenta atravessar todos em ordem.
@@ -612,21 +614,32 @@ while (true) {
 // **não pare o programa**. Talvez um portal posterior seja mais barato.
 
 // ---
+for (const portal of portais) {
+  if (energia >= portal.custo) {
+    energia -= portal.custo;
+    console.log(
+      `Portal para ${portal.destino} atravessado\nEnergia restante: ${energia}`,
+    );
+  } else {
+    console.log(`Energia insuficiente para ${portal.destino}`);
+    continue;
+  }
+}
 
 // ## Exercício 12 — Sistema de combo 🎮 ⭐⭐⭐⭐
 
 // Considere:
 
 // ```js
-// const ataques = [
-//   "soco",
-//   "soco",
-//   "chute",
-//   "soco",
-//   "chute",
-//   "chute",
-//   "especial",
-// ];
+const ataques = [
+  "soco",
+  "soco",
+  "especial",
+  "soco",
+  "chute",
+  "chute",
+  "especial",
+];
 // ```
 
 // Cada golpe causa:
@@ -654,6 +667,37 @@ while (true) {
 // Calcule o dano total causado.
 
 // ---
+let danoTotal = 0;
+let danoAtual = 0;
+for (let i = 0; i < ataques.length; i++) {
+  if (ataques[i] === "soco") {
+    danoAtual = 10;
+    if ((i + 1) % 3 == 0) {
+      danoTotal += 10;
+      danoAtual += 10;
+    }
+    danoTotal += 10;
+    console.log(`Ataque ${i + 1}: ${danoAtual}`);
+  } else if (ataques[i] === "chute") {
+    danoAtual = 15;
+    if ((i + 1) % 3 == 0) {
+      danoTotal += 10;
+      danoAtual += 10;
+    }
+    danoTotal += 15;
+    console.log(`Ataque ${i + 1}: ${danoAtual}`);
+  } else if (ataques[i] === "especial") {
+    danoAtual = 30;
+    if ((i + 1) % 3 == 0) {
+      danoTotal += 10;
+      danoAtual += 10;
+    }
+    danoTotal += 30;
+    console.log(`Ataque ${i + 1}: ${danoAtual}`);
+  }
+}
+
+console.log(`Dano total: ${danoTotal}`);
 
 // ## Exercício 13 — Energia regenerativa ⭐⭐⭐⭐⭐
 
