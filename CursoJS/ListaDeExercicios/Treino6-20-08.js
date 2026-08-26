@@ -289,6 +289,22 @@ for (const efeito of efeitos) {
   }
 }
 
+// correção
+
+for (const efeito of efeitos) {
+  if (efeito.tipo === "buff") {
+    personagem.ataque += efeito.valor;
+  } else if (efeito.tipo === "debuff") {
+    personagem.ataque -= efeito.valor;
+
+    if (personagem.ataque < 0) {
+      personagem.ataque = 0;
+    }
+  }
+
+  console.log(`Ataque atual: ${personagem.ataque}`);
+}
+
 // ## Exercício 6 — Estacionamento com cobrança progressiva ⭐⭐⭐
 
 // Crie:
@@ -333,6 +349,24 @@ function calcularEstacionamento(horas) {
 }
 
 console.log(calcularEstacionamento(5));
+
+// correção
+
+function calcularEstacionamento(horas) {
+  let total = 0;
+
+  for (let i = 1; i <= horas; i++) {
+    if (i === 1) {
+      total += 8;
+    } else if (i <= 3) {
+      total += 5;
+    } else {
+      total += 3;
+    }
+  }
+
+  return total;
+}
 
 // ## Exercício 7 — Porta de segurança com cartão e PIN ⭐⭐⭐⭐
 
@@ -426,31 +460,31 @@ const comandosNovos = [
 
 for (const comando of comandosNovos) {
   if (comando === "subir") {
-    if (bateria <= 20) {
+    if (bateria < 20) {
       console.log("oi");
       console.log(`Bateria insuficiente para: ${comando}`);
-      return;
+      continue;
     }
     bateria -= 20;
     console.log(`Subir executado - Bateria: ${bateria}%`);
   } else if (comando === "avancar") {
     if (bateria < 15) {
       console.log(`Bateria insuficiente para: ${comando}`);
-      return;
+      continue;
     }
     bateria -= 15;
     console.log(`Avançar executado - Bateria: ${bateria}%`);
   } else if (comando === "foto") {
     if (bateria < 10) {
       console.log(`Bateria insuficiente para: ${comando}`);
-      return;
+      continue;
     }
     bateria -= 10;
     console.log(`Foto executado - Bateria: ${bateria}%`);
-  } else {
+  } else if (comando === "pousar") {
     if (bateria < 5) {
       console.log(`Bateria insuficiente para: ${comando}`);
-      return;
+      continue;
     }
     bateria -= 5;
     console.log("Drone pousou");
@@ -555,8 +589,11 @@ const inimigo = {
 
 // ---
 
-while (jogador.vida >= 0 || inimigo.vida >= 0) {
+while (jogador.vida >= 0 && inimigo.vida >= 0) {
   inimigo.vida -= jogador.dano;
+  if (inimigo.vida < 0) {
+    inimigo.vida = 0;
+  }
   console.log(
     `${jogador.nome} atacou ${inimigo.nome}\nVida de ${inimigo.nome}: ${inimigo.vida}`,
   );
@@ -565,6 +602,9 @@ while (jogador.vida >= 0 || inimigo.vida >= 0) {
     break;
   }
   jogador.vida -= inimigo.dano;
+  if (jogador.vida < 0) {
+    jogador.vida = 0;
+  }
   console.log(
     `${inimigo.nome} atacou ${jogador.nome}\nVida de ${jogador.nome}: ${jogador.vida}`,
   );
@@ -672,7 +712,7 @@ let danoAtual = 0;
 for (let i = 0; i < ataques.length; i++) {
   if (ataques[i] === "soco") {
     danoAtual = 10;
-    if ((i + 1) % 3 == 0) {
+    if ((i + 1) % 3 === 0) {
       danoTotal += 10;
       danoAtual += 10;
     }
@@ -680,7 +720,7 @@ for (let i = 0; i < ataques.length; i++) {
     console.log(`Ataque ${i + 1}: ${danoAtual}`);
   } else if (ataques[i] === "chute") {
     danoAtual = 15;
-    if ((i + 1) % 3 == 0) {
+    if ((i + 1) % 3 === 0) {
       danoTotal += 10;
       danoAtual += 10;
     }
@@ -688,7 +728,7 @@ for (let i = 0; i < ataques.length; i++) {
     console.log(`Ataque ${i + 1}: ${danoAtual}`);
   } else if (ataques[i] === "especial") {
     danoAtual = 30;
-    if ((i + 1) % 3 == 0) {
+    if ((i + 1) % 3 === 0) {
       danoTotal += 10;
       danoAtual += 10;
     }
@@ -702,15 +742,15 @@ console.log(`Dano total: ${danoTotal}`);
 // ## Exercício 13 — Energia regenerativa ⭐⭐⭐⭐⭐
 
 // ```js
-// let energia = 40;
+let energiaDois = 40;
 
-// const acoes = [
-//   { tipo: "correr", custo: 15 },
-//   { tipo: "correr", custo: 15 },
-//   { tipo: "descansar", ganho: 20 },
-//   { tipo: "correr", custo: 30 },
-//   { tipo: "descansar", ganho: 50 },
-// ];
+const acoes = [
+  { tipo: "correr", custo: 15 },
+  { tipo: "correr", custo: 15 },
+  { tipo: "descansar", ganho: 20 },
+  { tipo: "correr", custo: 30 },
+  { tipo: "descansar", ganho: 50 },
+];
 // ```
 
 // Regras:
@@ -724,16 +764,32 @@ console.log(`Dano total: ${danoTotal}`);
 
 // ---
 
+acoes.forEach((acao) => {
+  if (energiaDois >= acao.custo) {
+    if (acao.tipo === "correr") {
+      energiaDois -= acao.custo;
+      console.log(`Corrida realizada. Energia atual: ${energiaDois}`);
+    }
+  }
+  if (acao.tipo === "descansar") {
+    energiaDois += acao.ganho;
+    if (energiaDois > 100) {
+      energiaDois = 100;
+    }
+    console.log(`Descanso realizado. Energia atual: ${energiaDois}`);
+  }
+});
+
 // ## Exercício 14 — Jogo de cartas simples ⭐⭐⭐⭐⭐
 
 // ```js
-// const cartas = [7, 5, 10, 8, 3];
+const cartas = [7, 5, 10, 8, 3];
 // ```
 
 // O jogador começa com:
 
 // ```js
-// let pontos = 0;
+let pontos = 0;
 // ```
 
 // Percorra as cartas em ordem.
@@ -761,24 +817,38 @@ console.log(`Dano total: ${danoTotal}`);
 
 // ---
 
+let soma = 0;
+
+for (const carta of cartas) {
+  if (carta >= 1 && carta <= 5) {
+    soma += carta;
+  } else if (carta >= 6 && carta <= 9) {
+    soma += carta * 2;
+  } else if (carta === 10) {
+    soma = 0;
+  }
+}
+
+console.log(`Soma total: ${soma}`);
+
 // # Desafio 15 — Caixa de supermercado com limite ⭐⭐⭐⭐⭐
 
 // Um cliente possui:
 
 // ```js
-// let dinheiro = 50;
+let dinheiro = 50;
 // ```
 
 // Carrinho:
 
 // ```js
-// const carrinho = [
-//   { nome: "Leite", preco: 8 },
-//   { nome: "Carne", preco: 25 },
-//   { nome: "Chocolate", preco: 7 },
-//   { nome: "Pizza", preco: 18 },
-//   { nome: "Água", preco: 4 },
-// ];
+const carrinho = [
+  { nome: "Leite", preco: 8 },
+  { nome: "Carne", preco: 25 },
+  { nome: "Chocolate", preco: 7 },
+  { nome: "Pizza", preco: 18 },
+  { nome: "Água", preco: 4 },
+];
 // ```
 
 // O caixa passa os produtos na ordem.
@@ -811,20 +881,34 @@ console.log(`Dano total: ${danoTotal}`);
 
 // ---
 
+let produtosComprados = 0;
+for (const produto of carrinho) {
+  if (produto.preco <= dinheiro) {
+    dinheiro -= produto.preco;
+    console.log(`${produto.nome} comprado\nSaldo: ${dinheiro}`);
+    produtosComprados += 1;
+  } else {
+    console.log(`${produto.nome} devolvido - dinheiro insuficiente`);
+  }
+}
+
+console.log(`Produtos comprados: ${produtosComprados}`);
+
 // # 👑 Desafio final — Escape da dungeon
 
 // ```js
-// let vida = 100;
-// let chaves = 0;
+let vida = 100;
+let chaves = 0;
 
-// const eventos = [
-//   { tipo: "armadilha", valor: 20 },
-//   { tipo: "chave" },
-//   { tipo: "porta" },
-//   { tipo: "cura", valor: 15 },
-//   { tipo: "porta" },
-//   { tipo: "armadilha", valor: 50 },
-// ];
+const eventos = [
+  { tipo: "armadilha", valor: 20 },
+  { tipo: "chave" },
+  { tipo: "porta" },
+  { tipo: "cura", valor: 15 },
+  { tipo: "chave" },
+  { tipo: "porta" },
+  { tipo: "armadilha", valor: 50 },
+];
 // ```
 
 // Regras:
@@ -899,3 +983,36 @@ console.log(`Dano total: ${danoTotal}`);
 // ```
 
 // Agora o personagem também pode encontrar moedas durante a exploração.
+
+for (let i = 0; i < eventos.length; i++) {
+  if (eventos[i].tipo === "armadilha") {
+    vida -= eventos[i].valor;
+    if (vida < 0) {
+      vida = 0;
+    }
+    console.log(`Armadilha! Vida: ${vida} 😓`);
+    if (vida == 0) {
+      console.log("💀 Você morreu na dungeon.");
+      break;
+    }
+  } else if (eventos[i].tipo === "chave") {
+    chaves += 1;
+    console.log(`Chave encontrada! Chaves: ${chaves} 🗝️`);
+  } else if (eventos[i].tipo === "porta") {
+    if (!chaves) {
+      console.log("Porta bloqueada 🔒");
+    } else {
+      chaves -= 1;
+      console.log("Porta aberta 🔓");
+    }
+  } else if (eventos[i].tipo === "cura") {
+    vida += eventos[i].valor;
+    if (vida > 100) {
+      vida = 100;
+    }
+    console.log(`Cura utilizada! Vida: ${vida} ❤️‍🩹`);
+  }
+  if (i == eventos.length - 1) {
+    console.log("🏆 Você escapou da dungeon!");
+  }
+}
