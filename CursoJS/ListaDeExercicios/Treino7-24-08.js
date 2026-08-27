@@ -51,18 +51,39 @@
 
 // ---
 
+function validarHorario(hora, minuto) {
+  if (hora >= 0 && hora <= 23) {
+    if (minuto >= 0 && minuto <= 59) {
+      console.log("Horário Válido");
+      if (hora < 10) {
+        hora = `0${hora}`;
+      }
+      if (minuto < 10) {
+        minuto = `0${minuto}`;
+      }
+    } else {
+      return "Horário inválido";
+    }
+  } else {
+    return "Horário inválido";
+  }
+  return `${hora}:${minuto}`;
+}
+
+console.log(validarHorario(23, 98));
+
 // ## Exercício 2 — Pedágio automático 🚗 ⭐⭐⭐
 
 // Um carro possui:
 
 // ```js
-// let saldo = 35;
+let saldo = 35;
 // ```
 
 // Durante a viagem ele passa por:
 
 // ```js
-// const pedagios = [8, 12, 5, 15, 7];
+const pedagios = [8, 12, 5, 15, 7];
 // ```
 
 // Cada número representa o preço de um pedágio.
