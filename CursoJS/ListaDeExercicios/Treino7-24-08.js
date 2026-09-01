@@ -118,20 +118,29 @@ const pedagios = [8, 12, 5, 15, 7];
 // ```
 
 // ---
+let pedagiosPagos = 0;
+
+for (const pedagio of pedagios) {
+  if (pedagio <= saldo) {
+    saldo -= pedagio;
+    console.log(`Pedagio de R$${pedagio} pago.💲\nSaldo: R$${saldo}`);
+    pedagiosPagos += 1;
+  } else {
+    console.log(`Saldo insuficiente para o pedagio de R$${pedagio}.❌`);
+  }
+}
+
+console.log(`Saldo final: R$${saldo}`);
+console.log(`Pedagios pagos: ${pedagiosPagos}`);
 
 // ## Exercício 3 — Login com bloqueio 🔐 ⭐⭐⭐
 
 // Considere:
 
 // ```js
-// const senhaCorreta = "js2026";
+const senhaCorreta = "js2026";
 
-// const tentativas = [
-//   "javascript",
-//   "js123",
-//   "js2026",
-//   "teste123",
-// ];
+const tentativas = ["javascript", "js123", "js2026", "teste123"];
 // ```
 
 // O sistema permite no máximo **3 erros**.
@@ -160,31 +169,47 @@ const pedagios = [8, 12, 5, 15, 7];
 // E o programa também deve parar.
 
 // ---
+const maximoDeTentativas = 3;
+for (let i = 0; i < tentativas.length; i++) {
+  if (tentativas[i] === senhaCorreta) {
+    console.log("Login realizado com sucesso 👍");
+    break;
+  } else {
+    console.log("Senha incorreta");
+    console.log(`Erros: ${i + 1} de ${maximoDeTentativas}`);
+    if (i >= maximoDeTentativas - 1) {
+      console.log("Conta bloqueada 🚫");
+      break;
+    }
+  }
+}
 
 // ## Exercício 4 — Ônibus 🚌 ⭐⭐⭐
 
 // O ônibus começa vazio:
 
 // ```js
-// let passageiros = 0;
+let passageiros = 0;
 // ```
 
 // Capacidade:
 
 // ```js
-// const capacidade = 10;
+const capacidade = 10;
 // ```
 
 // Durante o percurso acontecem:
 
 // ```js
-// const eventos = [
-//   { tipo: "entrar", quantidade: 4 },
-//   { tipo: "entrar", quantidade: 3 },
-//   { tipo: "sair", quantidade: 2 },
-//   { tipo: "entrar", quantidade: 6 },
-//   { tipo: "sair", quantidade: 8 },
-// ];
+const eventos = [
+  { tipo: "entrar", quantidade: 4 },
+  { tipo: "entrar", quantidade: 3 },
+  { tipo: "sair", quantidade: 2 },
+  { tipo: "sair", quantidade: 2 },
+  { tipo: "entrar", quantidade: 6 },
+  { tipo: "sair", quantidade: 8 },
+  { tipo: "entrar", quantidade: 10 },
+];
 // ```
 
 // Regras:
@@ -220,25 +245,39 @@ const pedagios = [8, 12, 5, 15, 7];
 
 // ---
 
+for (const evento of eventos) {
+  if (evento.tipo === "entrar") {
+    if (passageiros + evento.quantidade <= 10) {
+      passageiros += evento.quantidade;
+      console.log(`${evento.quantidade} passageiros entraram.`);
+      console.log(`Passageiros: ${passageiros}/${capacidade}`);
+    } else {
+      console.log(`Grupo de ${evento.quantidade} não conseguiu entrar.`);
+    }
+  } else if (evento.tipo === "sair") {
+    if (passageiros >= evento.quantidade) {
+      passageiros -= evento.quantidade;
+      console.log(`${evento.quantidade} pessoas sairam`);
+      console.log(`Passageiros ${passageiros}/${capacidade}`);
+    } else {
+      console.log(`Não existe ${evento.quantidade} passageiros para sair.`);
+    }
+  }
+}
+console.log(`Sobraram ${passageiros} passageiros no ônibus.`);
+
 // ## Exercício 5 — Download com interrupções 📥 ⭐⭐⭐
 
 // Um arquivo começa com:
 
 // ```js
-// let progresso = 0;
+let progresso = 0;
 // ```
 
 // Os eventos são:
 
 // ```js
-// const eventos = [
-//   15,
-//   20,
-//   35,
-//   -10,
-//   25,
-//   30,
-// ];
+const eventosDeDownload = [-15, 15, 20, 35, -10, 25, 30, -70];
 // ```
 
 // Números positivos representam progresso do download.
@@ -264,6 +303,20 @@ const pedagios = [8, 12, 5, 15, 7];
 // ```
 
 // e pare de processar eventos.
+
+for (const download of eventosDeDownload) {
+  progresso += download;
+  if (progresso > 100) {
+    progresso = 100;
+    console.log("Dowload concluído!🟢");
+    break;
+  } else if (progresso < 0) {
+    progresso = 0;
+    console.log(`Download com ${progresso}%`);
+  } else {
+    console.log(`Download com ${progresso}%`);
+  }
+}
 
 // ---
 
