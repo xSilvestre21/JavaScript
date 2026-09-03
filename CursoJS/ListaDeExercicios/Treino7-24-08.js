@@ -327,13 +327,13 @@ for (const download of eventosDeDownload) {
 // Considere estas jogadas:
 
 // ```js
-// const jogadas = [4, 6, 2, 6, 1, 5, 6];
+const jogadas = [4, 6, 2, 6, 1, 5, 6, 6];
 // ```
 
 // O jogador começa com:
 
 // ```js
-// let pontos = 0;
+let pontos = 0;
 // ```
 
 // Regras:
@@ -361,15 +361,43 @@ for (const download of eventosDeDownload) {
 
 // ---
 
+for (let i = 0; i < jogadas.length; i++) {
+  let jogadaAtual = jogadas[i];
+  if (jogadas[i] === 1) {
+    pontos -= 5;
+    console.log(`Rodou ${jogadas[i]} -> -5 pontos`);
+    console.log(`Total: ${pontos}`);
+  } else if (
+    jogadas[i] === 2 ||
+    jogadas[i] === 3 ||
+    jogadas[i] === 4 ||
+    jogadas[i] === 5
+  ) {
+    pontos += jogadaAtual;
+    console.log(`Rodou ${jogadas[i]} -> +${jogadas[i]} pontos`);
+    console.log(`Total: ${pontos}`);
+  } else if (jogadas[i] === 6) {
+    pontos += 10;
+    if (jogadas[i - 1] === 6) {
+      pontos += 10;
+      console.log(`Rodou ${jogadas[i]} -> +20 pontos`);
+      console.log(`Total: ${pontos}`);
+      continue;
+    }
+    console.log(`Rodou ${jogadas[i]} -> +10 pontos`);
+    console.log(`Total: ${pontos}`);
+  }
+}
+
 // ## Exercício 7 — Delivery 🛵 ⭐⭐⭐⭐
 
 // ```js
-// const pedidos = [
-//   { cliente: "Ana", distancia: 3, valor: 35 },
-//   { cliente: "Bruno", distancia: 12, valor: 70 },
-//   { cliente: "Carlos", distancia: 7, valor: 25 },
-//   { cliente: "Julia", distancia: 18, valor: 120 },
-// ];
+const pedidos = [
+  { cliente: "Ana", distancia: 3, valor: 35 },
+  { cliente: "Bruno", distancia: 12, valor: 70 },
+  { cliente: "Carlos", distancia: 7, valor: 25 },
+  { cliente: "Julia", distancia: 18, valor: 120 },
+];
 // ```
 
 // O restaurante possui estas regras:
@@ -396,24 +424,55 @@ for (const download of eventosDeDownload) {
 
 // ---
 
+let totalEmEntregas = 0;
+
+for (const pedido of pedidos) {
+  if (pedido.distancia < 5) {
+    console.log(`${pedido.cliente} 🚻\nPedido: R$${pedido.valor}`);
+    if (pedido.valor < 100) {
+      console.log(`Entrega: R$5`);
+      pedido.valor += 5;
+      totalEmEntregas += 5;
+    }
+    console.log(`Total: R$${pedido.valor}`);
+  } else if (pedido.distancia >= 6 && pedido.distancia <= 10) {
+    console.log(`${pedido.cliente} 🚻\nPedido: R$${pedido.valor}`);
+    if (pedido.valor < 100) {
+      console.log(`Entrega: R$10`);
+      pedido.valor += 10;
+      totalEmEntregas += 10;
+    }
+    console.log(`Total: R$${pedido.valor}`);
+  } else {
+    console.log(`${pedido.cliente} 🚻\nPedido: R$${pedido.valor}`);
+    if (pedido.valor < 100) {
+      console.log(`Entrega: R$15`);
+      pedido.valor += 15;
+      totalEmEntregas += 15;
+    }
+    console.log(`Total: R$${pedido.valor}`);
+  }
+}
+console.log(`Total em taxas de entrega: R$${totalEmEntregas} 🚗💨 ✅`);
 // ## Exercício 8 — Banco de energia 🔋 ⭐⭐⭐⭐
 
 // Um equipamento possui:
 
 // ```js
-// let bateria = 70;
+let bateria = 70;
 // ```
 
 // E recebe:
 
 // ```js
-// const operacoes = [
-//   { tipo: "usar", valor: 25 },
-//   { tipo: "carregar", valor: 20 },
-//   { tipo: "usar", valor: 50 },
-//   { tipo: "carregar", valor: 80 },
-//   { tipo: "usar", valor: 30 },
-// ];
+const operacoes = [
+  { tipo: "usar", valor: 25 },
+  { tipo: "carregar", valor: 20 },
+  { tipo: "usar", valor: 50 },
+  { tipo: "usar", valor: 50 },
+  { tipo: "carregar", valor: 80 },
+  { tipo: "usar", valor: 30 },
+];
 // ```
 
 // Regras:
@@ -442,6 +501,25 @@ for (const download of eventosDeDownload) {
 // mesmo que matematicamente passasse de 100.
 
 // ---
+
+for (const operacao of operacoes) {
+  if (operacao.tipo === "carregar") {
+    bateria += operacao.valor;
+    if (bateria > 100) {
+      bateria = 100;
+    }
+    console.log(`Carregamento de ${operacao.valor} solicitado. 🔋`);
+    console.log(`Bateria: ${bateria}%`);
+  } else if (operacao.tipo === "usar") {
+    if (operacao.valor > bateria) {
+      console.log("Operação recusada. Bateria insuficiente. ❌");
+    } else {
+      bateria -= operacao.valor;
+      console.log(`Uso de ${operacao.valor} solicitado. 🛠`);
+      console.log(`Bateria após o uso: ${bateria}%`);
+    }
+  }
+}
 
 // # Exercício 9 — O caixa do bar 🎟️ ⭐⭐⭐⭐
 
